@@ -1,3 +1,4 @@
+//assessment model
 export interface Quiz{
     readonly id: string;
     kind:"quiz";
