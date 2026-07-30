@@ -15,7 +15,7 @@ export class CourseService {
 
   private http = inject(HttpClient);
 
-  private baseUrl = 'https://localhost:5001/api/courses';
+  private baseUrl = 'https://localhost:5239/api/courses';
 
   getAll(page = 1, pageSize = 50) {
 
