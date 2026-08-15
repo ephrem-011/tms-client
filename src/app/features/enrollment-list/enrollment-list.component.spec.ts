@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EnrollmentListComponent } from './enrollment-list.component';
-
+// enrollment list component
 
 describe('EnrollmentListComponent', () => {
   let component: EnrollmentListComponent;
