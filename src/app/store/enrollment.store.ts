@@ -15,6 +15,8 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { pipe, concatMap, exhaustMap, tap, catchError, EMPTY } from 'rxjs';
 import { EnrollmentService } from '../services/enrollment.service';
 import { Enrollment } from '../models/enrollment.model';
+import { LiveSyncService } from '../services/live-sync.service';
+import { switchMap } from 'rxjs';
 
 export const EnrollmentStore = signalStore(
     { providedIn: 'root' },
