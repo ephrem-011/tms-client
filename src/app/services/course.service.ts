@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 import { Course, PagedResponse } from '../models/course.model';@Service()
 export class CourseService {
 private http = inject(HttpClient);
-private readonly base = `${environment.apiUrl}/courses`;
+private readonly base = `${environment.apiUrl}/courses/`;
 getAll() {
 return this.http
 .get<PagedResponse<Course>>(this.base, {
