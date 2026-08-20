@@ -23,6 +23,7 @@ export class InstructorDashboardComponent implements OnInit {
   ngOnInit(): void {
   
     this.store.loadEnrollments();
+    this.store.listenForLiveUpdates();
     this.hub.start();
 
   }

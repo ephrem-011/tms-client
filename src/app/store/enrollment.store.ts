@@ -35,10 +35,10 @@ export const EnrollmentStore = signalStore(
             () => store.entities().filter(e => e.status === 'Pending').length),
     })),
     withMethods((
-  store,
-  api = inject(EnrollmentService),
-  sync = inject(LiveSyncService)
-) => ({
+        store,
+        api = inject(EnrollmentService),
+        sync = inject(LiveSyncService)
+    ) => ({
         // Loading Data
         // Why concatMap here? Because concatMap processes one emission ata time
         // in strict order. If something triggers loadEnrollments() twicequickly,
@@ -122,6 +122,24 @@ export const EnrollmentStore = signalStore(
                     )
                 )
 
+            )
+        ),
+
+        listenForLiveUpdates: rxMethod<void>(
+            pipe(
+                tap(() => sync.connect()),
+                switchMap(() => sync.events$),
+                tap(event => {
+                    patchState(
+                        store,
+                        updateEntity({
+                            id: event.id,
+                            changes: {
+                                status: event.status
+                            }
+                        })
+                    );
+                })
             )
         ),
     })));
