@@ -1,9 +1,8 @@
-import { Component, signal, inject } from '@angular/core';
-import { rxResource } from '@angular/core/rxjs-interop';
+import { Component, computed, inject, signal } from '@angular/core';
 
 import { CourseCardComponent } from '../../ui/course-card/course-card.component';
+import { CourseStore } from '../../store/course.store';
 import { Course } from '../../models/course.model';
-import { CourseService } from '../../services/course.service';
 
 @Component({
   selector: 'app-student-dashboard',
@@ -14,20 +13,30 @@ import { CourseService } from '../../services/course.service';
 })
 export class StudentDashboardComponent {
 
-  private api = inject(CourseService);
+  readonly courseStore = inject(CourseStore);
+
+  courses = computed(() => this.courseStore.entities());
 
   selectedCourse = signal<Course | null>(null);
 
-  coursesResource = rxResource({
-    stream: () => this.api.getAll(),
-  });
+  constructor() {
+    this.courseStore.loadCourses();
+  }
 
   handleEnroll(course: Course) {
 
     this.selectedCourse.set(course);
 
-    console.log('Enrollment requested for:', course.title);
+    console.log(
+      'Enrollment requested for:',
+      course.title
+    );
 
   }
 
+  handleDelete(course: Course) {
+
+    this.courseStore.deleteCourse(course.id);
+
+  }
 }

@@ -26,12 +26,24 @@
 
     </span>
 
-    <button
-        (click)="enrollClicked.emit(course())"
-        [disabled]="course().enrollmentCount >= course().maxCapacity">
+    <div class="actions">
 
-        Enroll
+        <button
+            (click)="enrollClicked.emit(course())"
+            [disabled]="course().enrollmentCount >= course().maxCapacity">
 
-    </button>
+            Enroll
+
+        </button>
+
+        <button
+            type="button"
+            (click)="deleteClicked.emit(course())">
+
+            Delete
+
+        </button>
+
+    </div>
 
 </div>

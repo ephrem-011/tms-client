@@ -17,6 +17,7 @@ import {
 import { routes } from './app.routes';
 
 import { credentialsInterceptor } from './Interceptors/credentials.interceptor';
+import { errorInterceptor } from './Interceptors/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -29,7 +30,7 @@ export const appConfig: ApplicationConfig = {
 
     provideHttpClient(
       withInterceptors([
-        credentialsInterceptor
+        credentialsInterceptor, errorInterceptor
       ]),
       withXsrfConfiguration({
         cookieName: 'XSRF-TOKEN',

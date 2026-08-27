@@ -1,46 +1,45 @@
 <h2>Course Catalog</h2>
 
-@if (coursesResource.isLoading()) {
+@if (courseStore.isLoading()) {
 
-<div class="spinner">
+  <div class="spinner">
     Fetching courses from the server...
-</div>
+  </div>
 
 }
-@else if (coursesResource.error()) {
+@else if (courseStore.error()) {
 
-<div class="error">
-    Could not load courses.
-    Make sure your .NET API is running.
-</div>
+  <div class="error">
+    {{ courseStore.error() }}
+  </div>
 
 }
 @else {
 
-<div class="grid">
+  <div class="grid">
 
-    @for (course of coursesResource.value()!; track course.id) {
+    @for (course of courses(); track course.id) {
 
-    <tms-course-card
-        [course]="course"
-        (enrollClicked)="handleEnroll($event)">
+      <tms-course-card
+            [course]="course"
+            (enrollClicked)="handleEnroll($event)"
+            (deleteClicked)="handleDelete($event)">
     </tms-course-card>
-
     }
 
     @empty {
 
-    <p>No courses are available this term.</p>
+      <p>No courses are available this term.</p>
 
     }
 
-</div>
+  </div>
 
 }
 
 @if (selectedCourse(); as picked) {
 
-<p class="selection-hint" role="status">
+  <p class="selection-hint" role="status">
 
     Last enrollment request:
 
@@ -48,6 +47,6 @@
 
     ({{ picked.code }})
 
-</p>
+  </p>
 
 }

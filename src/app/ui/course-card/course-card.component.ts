@@ -15,4 +15,5 @@ export class CourseCardComponent {
 
   enrollClicked = output<Course>();
 
+  deleteClicked = output<Course>();
 }
